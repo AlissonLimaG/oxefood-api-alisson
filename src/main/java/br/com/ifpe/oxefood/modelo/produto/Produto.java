@@ -12,15 +12,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Cliente")
+@Table(name = "Produto")
 @SQLRestriction("habilitado = true")
 
-@Builder //essa anotação dá a classe um método de criar objetos diferente, mais performático!
+@Builder // essa anotação dá a classe um método de criar objetos diferente, mais performático!
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Produto extends EntidadeAuditavel{
+public class Produto extends EntidadeAuditavel {
 
     @Column
     private String codigo;
@@ -39,5 +39,4 @@ public class Produto extends EntidadeAuditavel{
 
     @Column
     private Integer tempoEntregaMaximo;
-    
 }
