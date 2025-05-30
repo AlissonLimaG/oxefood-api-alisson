@@ -1,10 +1,14 @@
 package br.com.ifpe.oxefood.modelo.cliente;
 
 import java.time.LocalDate;
+import java.util.List;
+
 import org.hibernate.annotations.SQLRestriction;
 import br.com.ifpe.oxefood.util.entity.EntidadeAuditavel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,14 +19,17 @@ import lombok.Setter;
 @Entity
 @Table(name = "Cliente")
 @SQLRestriction("habilitado = true")
-
-@Builder //essa anotação dá a classe um método de criar objetos diferente, mais performático!
+@Builder // essa anotação dá a classe um método de criar objetos diferente, mais
+         // performático!
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cliente extends EntidadeAuditavel  {
-  
+public class Cliente extends EntidadeAuditavel {
+
+   @OneToMany(mappedBy = "cliente", orphanRemoval = true, fetch = FetchType.EAGER)
+   private List<EnderecoCliente> enderecos;
+
    @Column
    private String nome;
 

@@ -11,6 +11,7 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository repository;
 
+    
     public Produto save(Produto produto) {
 
         produto.setHabilitado(true);
@@ -18,20 +19,24 @@ public class ProdutoService {
         return repository.save(produto);
     }
 
+
     public List<Produto> listarTodos() {
 
         return repository.findAll();
     }
+
 
     public Produto obterPorID(Long id) {
 
         return repository.findById(id).get();
     }
 
+
     @Transactional
     public void update(Long id, Produto produtoAlterado) {
 
         Produto produto = repository.findById(id).get();
+        produto.setCategoriaProduto(produtoAlterado.getCategoriaProduto());
         produto.setCodigo(produtoAlterado.getCodigo());
         produto.setTitulo(produtoAlterado.getTitulo());
         produto.setDescricao(produtoAlterado.getDescricao());
@@ -40,5 +45,15 @@ public class ProdutoService {
         produto.setTempoEntregaMinimo(produtoAlterado.getTempoEntregaMinimo());
 
         repository.save(produto);
+    }
+
+
+    @Transactional
+    public void delete(Long id){
+
+        Produto entity = repository.findById(id).get();
+        entity.setHabilitado(false);
+
+        repository.save(entity);
     }
 }
