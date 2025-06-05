@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import br.com.ifpe.oxefood.modelo.categoriaProduto.CategoriaProduto;
-import br.com.ifpe.oxefood.modelo.categoriaProduto.CategoriaProdutoRepository;
 import br.com.ifpe.oxefood.modelo.categoriaProduto.CategoriaProdutoService;
 import br.com.ifpe.oxefood.modelo.cliente.Cliente;
 import br.com.ifpe.oxefood.modelo.produto.Produto;

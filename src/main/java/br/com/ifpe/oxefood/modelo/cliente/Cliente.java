@@ -19,7 +19,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "Cliente")
 @SQLRestriction("habilitado = true")
-@Builder // essa anotação dá a classe um método de criar objetos diferente, mais
+@Builder // essa anotação dá a classe uma maneira de criar objetos diferente, mais
          // performático!
 @Getter
 @Setter
