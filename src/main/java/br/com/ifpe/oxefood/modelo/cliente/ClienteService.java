@@ -5,11 +5,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.ifpe.oxefood.modelo.acesso.Perfil;
+import br.com.ifpe.oxefood.modelo.acesso.PerfilRepository;
+import br.com.ifpe.oxefood.modelo.acesso.UsuarioService;
 import br.com.ifpe.oxefood.util.exception.ClienteException;
 import jakarta.transaction.Transactional;
 
 @Service
 public class ClienteService {
+
+    @Autowired
+    private UsuarioService usuarioService;
+
+    @Autowired
+    private PerfilRepository perfilUsuarioRepository;
 
     @Autowired
     private ClienteRepository repository;
@@ -22,11 +31,16 @@ public class ClienteService {
     // Se passar todas as operações, ele faz o commit.
     @Transactional
     public Cliente save(Cliente cliente) {
+        usuarioService.save(cliente.getUsuario());
 
-        if(!cliente.getFoneCelular().startsWith("(81)")){
-            throw new ClienteException(ClienteException.MSG_ERRO_PREFIXO_CELULAR);
+        for (Perfil perfil : cliente.getUsuario().getRoles()) {
+            perfil.setHabilitado(Boolean.TRUE);
+            perfilUsuarioRepository.save(perfil);
         }
 
+        if (!cliente.getFoneCelular().startsWith("(81)")) {
+            throw new ClienteException(ClienteException.MSG_ERRO_PREFIXO_CELULAR);
+        }
 
         cliente.setHabilitado(Boolean.TRUE);
         return repository.save(cliente);
@@ -64,9 +78,6 @@ public class ClienteService {
         repository.save(cliente);
     }
 
-
-
-    
     @Transactional
     public EnderecoCliente adicionarEnderecoCliente(Long clienteId, EnderecoCliente endereco) {
 
@@ -93,7 +104,6 @@ public class ClienteService {
         return endereco;
     }
 
-
     @Transactional
     public EnderecoCliente atualizarEnderecoCliente(Long id, EnderecoCliente enderecoAlterado) {
 
@@ -108,7 +118,6 @@ public class ClienteService {
 
         return enderecoClienteRepository.save(endereco);
     }
-
 
     @Transactional
     public void removerEnderecoCliente(Long idEndereco) {

@@ -2,12 +2,9 @@ package br.com.ifpe.oxefood.api.cliente;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import br.com.ifpe.oxefood.modelo.acesso.Perfil;
 import br.com.ifpe.oxefood.modelo.acesso.Usuario;
 import br.com.ifpe.oxefood.modelo.cliente.Cliente;
@@ -57,7 +54,7 @@ public class ClienteRequest {
                 .roles(Arrays.asList(new Perfil(Perfil.ROLE_CLIENTE)))
                 .build();
     }
-
+    
     // método do lombok definido na classe Cliente usando @Builder
     public Cliente build() {
         return Cliente.builder()
